@@ -1,38 +1,31 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
-int binSearch(int array[], int size, int key) {
-    int left = 0;
-    int right = size - 1;
 
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
+int binToDec(long long bin) {
+    int dec = 0;
+    int power = 0;
 
-        if (array[mid] == key) {
-            return mid;
-        }
-
-        if (array[mid] < key) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
+    while (bin > 0) {
+        int lastDigit = bin % 10;
+        dec += lastDigit * pow(2, power);
+        bin /= 10;
+        power++;
     }
 
-    return -1;
+    return dec;
 }
 
 int main() {
-    int arr[] = {10, 20, 30, 40, 50, 60, 70, 80, 90};
-    int size = std::size(arr);
-    int key;
+    long long binNum;
 
-    cout << "Введіть елемент для пошуку: ";
-    cin >> key;
+    cout << "Введіть двійкове число: ";
+    cin >> binNum;
 
-    int index = binSearch(arr, size, key);
+    int decimalNumber = binToDec(binNum);
 
-    index != -1 ? cout << "Елемент знайдено на індексі: " << index << endl : cout << "Елемент не знайдено в масиві." << endl;
+    cout << "Число у десятковій системі: " << decimalNumber << endl;
 
     return 0;
 }
